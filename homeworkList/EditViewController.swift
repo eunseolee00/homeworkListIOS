@@ -12,8 +12,7 @@ class EditViewController: UIViewController {
 
     @IBOutlet weak var assignment: UITextField!
     @IBOutlet weak var course: UITextField!
-    @IBOutlet weak var date: UITextField!
-    
+    @IBOutlet weak var date: UIDatePicker!
     
     var homework : Homework? = nil
     var loc = 0
@@ -26,7 +25,7 @@ class EditViewController: UIViewController {
         if let t = homework {
             assignment.text = t.assignment
             course.text = t.course
-            date.text = t.date
+            date.setDate(t.date??, false)
         }//viewDidLoad()
 
     }
