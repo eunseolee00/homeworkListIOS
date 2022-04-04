@@ -21,8 +21,23 @@ class AddViewController: UIViewController {
         
     }//AddViewController
     
-    @IBAction func save( sender: Any ) {
-        
+    @IBAction func save(_ sender: Any ) {
+        if let context = (UIApplication.shared.delegate as?AppDelegate)?.persistentContainer.viewContext{
+            
+            let hw = Homework(entity: Homework.entity(), insertInto: context)
+            
+            if let assignment = assignment.text {
+                hw.assignment = assignment
+            }
+            if let course = course.text {
+                hw.course = course
+            }
+            
+            hw.date = date.date
+            try? context.save()
+            prevVC.getHomework()
+            navigationController?.popViewController(animated: true)
+        }
     }//save
 
     /*

@@ -17,17 +17,17 @@ class HWTableViewController: UITableViewController {
         
     }//viewDidLoad()
     
-    func getToDos() {
+    func getHomework() {
         if let context = (UIApplication.shared.delegate as?AppDelegate)?.persistentContainer.viewContext{
             if let coreDataHW =  try? context.fetch(Homework.fetchRequest()) as? [Homework] {
                 HWList = coreDataHW
                 tableView.reloadData()
             }
         }
-    }//getToDos()
+    }//getHomework()
     
     override func viewWillAppear(_ animated: Bool) {
-        getToDos()
+        getHomework()
     }
     
 
@@ -42,10 +42,11 @@ class HWTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
 
-        _ = HWList[indexPath.row].assignment
+        let assignment = HWList[indexPath.row].assignment
         _ = HWList[indexPath.row].course
         _ = HWList[indexPath.row].date
-
+        
+        cell.textLabel?.text = assignment
         return cell
     }
     
@@ -66,7 +67,7 @@ class HWTableViewController: UITableViewController {
             
             if let context = (UIApplication.shared.delegate as?AppDelegate)?.persistentContainer.viewContext{
                 context.delete(homework)
-                getToDos()
+                getHomework()
             }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

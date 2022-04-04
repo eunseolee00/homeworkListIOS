@@ -25,13 +25,32 @@ class EditViewController: UIViewController {
         if let t = homework {
             assignment.text = t.assignment
             course.text = t.course
-            date.setDate(t.date??, false)
+            if let d = t.date{
+                date.date = d
+            }
         }//viewDidLoad()
 
     }
 
     @IBAction func save(_ sender: Any) {
-        
+        if let context = (UIApplication.shared.delegate as?AppDelegate)?.persistentContainer.viewContext{
+            context.delete(homework!)
+            
+            let hw = Homework(entity: Homework.entity(), insertInto: context)
+            
+            if let assignment = assignment.text {
+                hw.assignment = assignment
+            }
+            if let course = course.text {
+                hw.course = course
+            }
+            
+            hw.date = date.date
+            
+            try? context.save()
+            prevVC.getHomework()
+            navigationController?.popViewController(animated: true)
+        }
 
     }//save
 }
