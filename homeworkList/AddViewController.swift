@@ -11,7 +11,7 @@ class AddViewController: UIViewController {
     
     @IBOutlet weak var assignment: UITextField!
     @IBOutlet weak var course: UITextField!
-    @IBOutlet weak var date: UIDatePicker!
+    @IBOutlet weak var date: UITextField!
     
     var prevVC = HWTableViewController()
     
